@@ -76,7 +76,9 @@ class CarUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Car
     fields = "__all__"
     success_url = reverse_lazy("taxi:car-detail")
-    template_name = "taxi/car_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("taxi:car-detail", kwargs={"pk": self.object.pk})
 
 
 class CarDeleteView(LoginRequiredMixin, generic.DeleteView):
